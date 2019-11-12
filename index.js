@@ -188,10 +188,19 @@ function getLastCarInfo(inventory) {
  * 
  * For example, if getCarInfoById is invoked with the inventory and the number 1,
  * it will return `This is a Lincoln Navigator`.
+ 
 */
-function getCarInfoById(inventory, id) {
-  return 'This is a ' + inventory[id].car_make + inventory[id].car_model;
+function getCarInfoById(carArray,idInfo) {
+  for (let i = 0; i < carArray.length;) {
+    if (carArray[i].id === idInfo) {
+      return `This is a ${carArray[i].car_make} ${carArray[i].car_model}.`;
+    }
+    else {
+      i++;
+    }
+  }
 }
+
 
 /**
  * ### Challenge `sortCarInventory`
@@ -201,20 +210,19 @@ function getCarInfoById(inventory, id) {
  *     (1) an array which is an inventory of cars like the one inside /data/inventory.js.
  * sortCarInventory returns an inventory that is sorted by car_model, ascending [A-Z].
 */
-function sortCarInventory(inventory) {
-  /* code here */
-  return inventory.sort(function(car_model){
-    let nameA = a.car_model.toUpperCase();
-    let nameB = b.car_model.toUppercase();
-    if (nameA < nameB){
+function sortCarInventory(inventory){
+  inventory.sort(function(a, b){
+    var carA = a.car_model.toUpperCase();
+    var carB = b.car_model.toUpperCase();
+    if (carA < carB){
       return -1;
-    }
-    if (nameA > nameB){
-      return 1;
-    }
-    return 0;
-    };
-
+}
+if (carA > carB){
+  return 1;
+}
+return 0;
+  });
+  return inventory;
 }
 
 /**
@@ -247,9 +255,15 @@ function getModelYears(inventory) {
  * with a `car_year` which is at most the given desired max year,
  * in the same order as they appear in the original inventory.
 */
-function getOlderCars(/* code here */) {
-  /* code here */
-}
+function getOlderCars(inventory, maxYear) {
+  let olderArray = [];
+  for (let i = 0; i < inventory.length; i++) {
+    if (inventory[i].car_year <= maxYear) {
+    olderArray.push(inventory[i]);
+    }
+  }
+    return olderArray;
+  }
 
 /**
  * ### Challenge `getGermanCars`
@@ -262,9 +276,30 @@ function getOlderCars(/* code here */) {
  * made by either `Audi` or `Mercedes-Benz` or `Volkswagen` or `BMW`,
  * in the same order as they appear in the original inventory.
 */
-function getGermanCars(/* code here */) {
-  /* code here */
+
+function getGermanCars(inventory) {
+  let germanArray = [];
+  for (let i= 0; i < inventory.length; i++) {
+    if(inventory[i].car_make === "Audi") {
+    germanArray.push(inventory[i]);
+    }
+    if(inventory[i].car_make === "Mercedes-Benz"){ 
+    germanArray.push(inventory[i]);
+    }
+    if(inventory[i].car_make === "Volkswagen"){ 
+    germanArray.push(inventory[i]);
+    }
+    if(inventory[i].car_make === "BMW"){ 
+    germanArray.push(inventory[i]);
+    }
+
+  }
+  return germanArray;
 }
+
+
+      
+  
 
 /**
  * ### Challenge refactor to arrow functions
